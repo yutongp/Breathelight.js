@@ -1,0 +1,125 @@
+@-moz-keyframes breathe {
+	from {
+		color: rgba(0, 0, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+	}
+
+	1% {
+		color: rgba(0, 0, 0, 0);
+		border-color: rgba(0, 0, 0, 0);
+	}
+
+	1% {
+		color: rgba(51, 153, 255, 0);
+		border-color: rgba(51, 153, 255, 0);
+		box-shadow: 0px 1px 0px rgba(51, 153, 255, 0);
+		text-shadow: 0px 1px 0px rgba(51, 153, 255, 0);
+	}
+
+
+	23%{
+		color: rgba(51, 153, 255, 1);
+		border-color: rgba(51, 153, 255, 1);
+		box-shadow: 0px 1px 10px rgba(51, 153, 255, 1);
+		text-shadow: 0px 1px 10px rgba(51, 153, 255, 1);
+	}
+
+	45% {
+		color: rgba(51, 153, 255, 1);
+		border-color: rgba(51, 153, 255, 1);
+		box-shadow: 0px 1px 20px rgba(51, 153, 255, 1);
+		text-shadow: 0px 1px 20px rgba(51, 153, 255, 1);
+	}
+
+	67% {
+		color: rgba(51, 153, 255, 1);
+		border-color: rgba(51, 153, 255, 1);
+		box-shadow: 0px 1px 10px rgba(51, 153, 255, 1);
+		text-shadow: 0px 1px 10px rgba(51, 153, 255, 1);
+	}
+
+	89% {
+		color: rgba(51, 153, 255, 0);
+		border-color: rgba(51, 153, 255, 0);
+		box-shadow: 0px 1px 0px rgba(51, 153, 255, 0);
+		text-shadow: 0px 1px 0px rgba(51, 153, 255, 0);
+	}
+
+	89% {
+		color: rgba(0, 0, 0, 0);
+		border-color: rgba(0, 0, 0, 0);
+	}
+
+	92% {
+		color: rgba(0, 0, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+	}
+
+	to {
+		color: rgba(0, 0, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+	}
+}
+
+@-webkit-keyframes breathe {
+	from {
+		color: rgba(0, 0, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+	}
+
+	1% {
+		color: rgba(0, 0, 0, 0);
+		border-color: rgba(0, 0, 0, 0);
+	}
+
+	1% {
+		color: rgba(51, 153, 255, 0);
+		border-color: rgba(51, 153, 255, 0);
+		box-shadow: 0px 1px 0px rgba(51, 153, 255, 0);
+		text-shadow: 0px 1px 0px rgba(51, 153, 255, 0);
+	}
+
+
+	23%{
+		color: rgba(51, 153, 255, 1);
+		border-color: rgba(51, 153, 255, 1);
+		box-shadow: 0px 1px 10px rgba(51, 153, 255, 1);
+		text-shadow: 0px 1px 10px rgba(51, 153, 255, 1);
+	}
+
+	45% {
+		color: rgba(51, 153, 255, 1);
+		border-color: rgba(51, 153, 255, 1);
+		box-shadow: 0px 1px 20px rgba(51, 153, 255, 1);
+		text-shadow: 0px 1px 20px rgba(51, 153, 255, 1);
+	}
+
+	67% {
+		color: rgba(51, 153, 255, 1);
+		border-color: rgba(51, 153, 255, 1);
+		box-shadow: 0px 1px 10px rgba(51, 153, 255, 1);
+		text-shadow: 0px 1px 10px rgba(51, 153, 255, 1);
+	}
+
+	89% {
+		color: rgba(51, 153, 255, 0);
+		border-color: rgba(51, 153, 255, 0);
+		box-shadow: 0px 1px 0px rgba(51, 153, 255, 0);
+		text-shadow: 0px 1px 0px rgba(51, 153, 255, 0);
+	}
+
+	89% {
+		color: rgba(0, 0, 0, 0.5);
+		border-color: rgba(0, 0, 0, 0.5);
+	}
+
+	92% {
+		color: rgba(0, 0, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+	}
+
+	to {
+		color: rgba(0, 0, 0, 1);
+		border-color: rgba(0, 0, 0, 1);
+	}
+}
