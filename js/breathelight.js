@@ -1,10 +1,13 @@
 (function($) {
+
 	$.fn.breathe = function( options ) {
 		// Establish our default settings
 		var settings = $.extend({
 			color:		{r:51, g:153, b: 255},
+
 			time: 2,
-			interval:	50
+			interval:	50,
+			option: "on"
 		}, options);
 
 		var shadow=0;
@@ -12,7 +15,7 @@
 		var thres = settings.time / (settings.interval / 1000);
 		var target = this;
 
-		var breathef = setInterval(function(){
+		var breathef = function() {
 			if (direcation > 0) {
 				shadow += 1;
 			} else {
@@ -40,11 +43,17 @@
 				//target.css("box-shadow", "0px 3px 0px 0px rgb(34,34,34), 0px 7px 10px 0px rgb(17,17,17), inset 0px 1px 1px 0px rgba(250, 250, 250, .2), inset 0px -12px 35px 0px rgba(0, 0, 0, .5)");
 				target.css("text-shadow","2px 1px 1px rgb(37, 37, 37)");
 			}
-		}, settings.interval);
+			target.data("breatheID", requestAnimationFrame(breathef));
+		};
+
+		if (settings.option === "on") {
+			this.data("breatheID", requestAnimationFrame(breathef));
+		} else {
+			//TODO set back to origin css
+			cancelAnimationFrame(this.data("breatheID"));
+		}
+
 		return this;
 	};
 
-	$.fn.breathe_cancel = function() {
-
-	};
 }(jQuery));
