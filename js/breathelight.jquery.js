@@ -14,8 +14,8 @@
 			borderLightColor:	{r: 51, g: 153, b: 255},
 			textDarkColor:		{r: 0, g: 0, b: 0},
 			borderDarkColor:	{r: 0, g: 0, b: 0},
-			lightFrames:		40,	// Frames need to the lightest
-			dullFrames:			20,	// Frames nedd to dull
+			lightFrames:		50,	// Frames need to the lightest
+			dullFrames:			25,	// Frames nedd to dull
 			darkFrames:			10,	// Frames nedd to the darkest
 			maxBlur:			20,
 			option:				"on"
