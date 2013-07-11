@@ -4,7 +4,7 @@
 		var lightText = (options && options.hasOwnProperty("textLightColor"))
 					? true
 					: false;
-		var lightBorder= (options && options.hasOwnProperty("borderLightColor"))
+		var lightBorder = (options && options.hasOwnProperty("borderLightColor"))
 					? true
 					: false;
 
@@ -14,7 +14,7 @@
 			borderLightColor:	{r: 51, g: 153, b: 255},
 			textDarkColor:		{r: 0, g: 0, b: 0},
 			borderDarkColor:	{r: 0, g: 0, b: 0},
-			lightFrames:		60,	// Frames need to the lightest
+			lightFrames:		40,	// Frames need to the lightest
 			dullFrames:			20,	// Frames nedd to dull
 			darkFrames:			10,	// Frames nedd to the darkest
 			maxBlur:			20,
@@ -81,6 +81,7 @@
 				direcation = (direcation > 0)
 					? 1
 					: -1;
+				currentBlur = 0;
 			}
 			target.data("breatheID", requestAnimationFrame(breathef));
 		};
