@@ -1,59 +1,116 @@
 (function($) {
 
 	$.fn.breathe = function( options ) {
+		var lightText = (options && options.hasOwnProperty("textLightColor"))
+					? true
+					: false;
+		var lightBorder= (options && options.hasOwnProperty("borderLightColor"))
+					? true
+					: false;
+
 		// Establish our default settings
 		var settings = $.extend({
-			color:		{r:51, g:153, b: 255},
-
-			time: 2,
-			interval:	50,
-			option: "on"
+			textLightColor:		{r: 51, g: 153, b: 255},
+			borderLightColor:	{r: 51, g: 153, b: 255},
+			textDarkColor:		{r: 0, g: 0, b: 0},
+			borderDarkColor:	{r: 0, g: 0, b: 0},
+			lightFrames:		60,	// Frames need to the lightest
+			dullFrames:			20,	// Frames nedd to dull
+			darkFrames:			10,	// Frames nedd to the darkest
+			maxBlur:			20,
+			option:				"on"
 		}, options);
 
-		var shadow=0;
-		var direcation = 1;
-		var thres = settings.time / (settings.interval / 1000);
-		var target = this;
-
 		var breathef = function() {
-			if (direcation > 0) {
-				shadow += 1;
-			} else {
-				shadow -= 2;
-			}
-			if (shadow == thres*0.8 || shadow == -thres*0.2) {
-				direcation = -direcation;
-			}
-			if (shadow >= 0) {
-				var k = shadow / (thres*0.8) * 2;
-				target.css("color","rgba("+ settings.color.r +", "+ settings.color.g +", "+ settings.color.b +", "+ k +")");
-				target.css("border-color","rgba("+ settings.color.r +", "+ settings.color.g +", "+ settings.color.b +", "+ k +")");
-				target.css("text-shadow","0px 1px "+ shadow +"px rgba("+ settings.color.r +", "+ settings.color.g +", "+ settings.color.b +", "+ k +")");
-				target.css("box-shadow","0px 1px "+shadow+"px rgba("+ settings.color.r +", "+ settings.color.g +", "+ settings.color.b +", "+ k +")");
-				//target.css("box-shadow","0px 1px "+shadow+"px rgba(51, 153, 255, "+ k + "), inset 0px 1px 1px 0px rgba(250, 250, 250, .2), inset 0px -12px 35px 0px rgba(0, 0, 0, .5)");
-			} else {
-				var k = shadow / (thres*0.2) * -2;
-				if (direcation < 0) {
-					target.css("color","rgba(0, 0, 0, "+ k +")");
-					target.css("border-color", "rgba(0, 0, 0, "+ k +")");
-				} else {
-					target.css("color","rgba(0, 0, 0, 1)");
-					target.css("border-color", "rgba(0, 0, 0, 1)");
+			if (frameCount >= 0) {
+				var alpha = frameCount / settings.lightFrames * 2;
+				if (lightText === true) {
+					target.css("color",
+							"rgba("+ settings.textLightColor.r +", "
+							+ settings.textLightColor.g + ", "
+							+ settings.textLightColor.b +", "+ alpha +")");
+					target.css("text-shadow",
+							//oldstyles.textShadow + ", " +
+							"0px 1px " + currentBlur + "px rgba("
+							+ settings.textLightColor.r + ", "
+							+ settings.textLightColor.g + ", "
+							+ settings.textLightColor.b + ", " + alpha + ")");
 				}
-				//target.css("box-shadow", "0px 3px 0px 0px rgb(34,34,34), 0px 7px 10px 0px rgb(17,17,17), inset 0px 1px 1px 0px rgba(250, 250, 250, .2), inset 0px -12px 35px 0px rgba(0, 0, 0, .5)");
-				target.css("text-shadow","2px 1px 1px rgb(37, 37, 37)");
+
+				if (lightBorder === true) {
+					target.css("border-color",
+							"rgba(" + settings.borderLightColor.r + ", "
+							+ settings.borderLightColor.g + ", "
+							+ settings.borderLightColor.b +", " + alpha + ")");
+					target.css("box-shadow",
+							//oldstyles.boxShadow + ", " +
+							"0px 1px " + currentBlur + "px rgba("
+							+ settings.borderLightColor.r + ", "
+							+ settings.borderLightColor.g + ", "
+							+ settings.borderLightColor.b + ", " + alpha + ")");
+				}
+				currentBlur += blurDelta * direcation;
+			} else {
+				var alpha = (direcation < 0)
+					? (-frameCount) / settings.darkFrames * 2
+					: 1;
+
+				if (lightText === true) {
+					target.css("color",
+							"rgba("+ settings.textDarkColor.r +", "
+							+ settings.textDarkColor.g + ", "
+							+ settings.textDarkColor.b +", "+ alpha +")");
+				}
+
+				if (lightBorder === true) {
+					target.css("border-color",
+							"rgba(" + settings.borderDarkColor.r + ", "
+							+ settings.borderDarkColor.g + ", "
+							+ settings.borderDarkColor.b +", " + alpha + ")");
+				}
+				target.css("box-shadow", oldstyles.boxShadow);
+				target.css("text-shadow", oldstyles.textShadow);
+			}
+
+			frameCount += direcation;
+			if (frameCount === settings.lightFrames) {
+				direcation = -(settings.lightFrames / settings.dullFrames);
+			} else if (frameCount === -settings.darkFrames) {
+				direcation = 1;
+			} else if (frameCount === 0) {
+				direcation = (direcation > 0)
+					? 1
+					: -1;
 			}
 			target.data("breatheID", requestAnimationFrame(breathef));
 		};
 
 		if (settings.option === "on") {
+			if (lightText === false && lightBorder === false) {
+				lightText = true;
+				lightBorder = true;
+			}
+			var blurDelta = settings.maxBlur / settings.lightFrames;
+			var direcation = 1;
+			var target = this;
+			var frameCount = 0;
+			var currentBlur = 0;
+			var oldstyles = {
+				color: this.css("color"),
+				textShadow: this.css("text-shadow"),
+				borderColor: this.css("border-color"),
+				boxShadow: this.css("box-shadow")
+			};
 			this.data("breatheID", requestAnimationFrame(breathef));
-		} else {
-			//TODO set back to origin css
+			this.data("breatheOld", oldstyles);
+		} else if (settings.option === "off") {
 			cancelAnimationFrame(this.data("breatheID"));
+			this.css("color", this.data("breatheOld").color);
+			this.css("border-color", this.data("breatheOld").borderColor);
+			this.css("box-shadow", this.data("breatheOld").boxShadow);
+			this.css("text-shadow", this.data("breatheOld").textShadow);
 		}
 
 		return this;
 	};
-
 }(jQuery));
