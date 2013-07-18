@@ -2,7 +2,7 @@ Breathelight.js
 =============
 
 Cool breathe light effect on web in both CSS animation and jQuery.
-
+###[Demo](http://yutong.me)
 
 Getting started
 =============
@@ -14,4 +14,4 @@ Import the core library:
 
 Sample example:
 
-	$("#mbutton").breathe();,
+	$("#mybutton").breathe();
